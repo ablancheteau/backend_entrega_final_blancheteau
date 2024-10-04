@@ -1,0 +1,11 @@
+<h1>{{product.name}}</h1>
+<p>Descripción: {{product.description}}</p>
+<p>Precio: ${{product.price}}</p>
+
+<form action="/cart" method="POST">
+    <input type="hidden" name="productId" value="{{product._id}}">
+    <button type="submit">Agregar al carrito</button>
+</form>
+
+<a href="/products">Volver al listado de productos</a>
+<a href="/cart">Ver carrito</a>

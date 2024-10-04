@@ -1,0 +1,23 @@
+<h1>Tu carrito</h1>
+
+{{#if cart.length}}
+    <ul>
+        {{#each cart}}
+            <li>
+                <h3>{{this.product.name}}</h3>
+                <p>Cantidad: {{this.quantity}}</p>
+                <p>Precio: ${{this.product.price}} x {{this.quantity}} = ${{multiply this.product.price this.quantity}}</p>
+                <form action="/cart/remove" method="POST">
+                    <input type="hidden" name="productId" value="{{this.product._id}}">
+                    <button type="submit">Eliminar del carrito</button>
+                </form>
+            </li>
+        {{/each}}
+    </ul>
+    <p>Total: ${{total}}</p>
+
+    <a href="/checkout">Proceder al pago</a>
+{{else}}
+    <p>Tu carrito está vacío.</p>
+    <a href="/products">Volver a la tienda</a>
+{{/if}}
