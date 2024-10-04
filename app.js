@@ -5,10 +5,11 @@ const exphbs = require('express-handlebars');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes'); 
 const cartRoutes = require('./routes/cartRoutes');
+const homeController = require('./controllers/homeController'); // Importa el controlador de la página de inicio
 
 const app = express();
 
-
+// Configurar Handlebars con layout y helper personalizado
 app.engine('handlebars', exphbs.engine({
     defaultLayout: 'main',
     helpers: {
@@ -17,7 +18,7 @@ app.engine('handlebars', exphbs.engine({
 }));
 app.set('view engine', 'handlebars');
 
-
+// Middleware para manejar JSON y formularios
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -29,6 +30,9 @@ app.use('/api/products', productRoutes);
 
 // Usar las rutas del carrito y proceso de compra
 app.use('/cart', cartRoutes);
+
+// Usar la ruta de la página de inicio
+app.get('/', homeController.getHomePage);  // Renderizar la página de inicio con el controlador
 
 // Conectar a la base de datos
 mongoose.connect(process.env.MONGO_URL, {
