@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars'); 
+const path = require('path');  // Importar path para configurar la ruta de las vistas
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes'); 
 const cartRoutes = require('./routes/cartRoutes');
@@ -17,6 +18,9 @@ app.engine('handlebars', exphbs.engine({
     }
 }));
 app.set('view engine', 'handlebars');
+
+// Asegúrate de que Express sepa dónde está la carpeta 'views'
+app.set('views', path.join(__dirname, 'views'));
 
 // Middleware para manejar JSON y formularios
 app.use(express.json());
